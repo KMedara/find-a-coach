@@ -1,5 +1,6 @@
 # find-a-coach-ts
 
+## This is the main course project for [Vue - The Complete Guide](https://www.udemy.com/course/vuejs-2-the-complete-guide/) but redone using typescript and the new composition API
 ## Project setup
 ```
 npm install
