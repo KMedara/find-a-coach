@@ -23,26 +23,6 @@ const routes: Array<RouteRecordRaw> = [
   { path: '/:notFound(.*)', component: NotFound }
 ];
 
-/** 
- * ! 
- * 
- *  routes: [
-    { path: '/', redirect: '/coaches' },
-    { path: '/coaches', component: CoachesList },
-    {
-      path: '/coaches/:id',
-      component: CoachDetail,
-      props: true,
-      children: [
-        { path: 'contact', component: ContactCoach } // /coaches/c1/contact
-      ]
-    },
-    { path: '/register', component: CoachRegistation },
-    { path: '/requests', component: RequestsReceived },
-    { path: '/:notFound(.*)', component: NotFound }
-  ]
- */
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

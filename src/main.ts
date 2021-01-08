@@ -10,6 +10,7 @@ import BaseSpinner from '@/components/ui/BaseSpinner.vue';
 import BaseDialog from '@/components/ui/BaseDialog.vue';
 import { ICoach } from '@/typings/ICoach'
 import { IFilter } from '@/typings/IFilter'
+import UserAlert from "@/components/UserAlert.vue";
 
 
 createApp(App)
@@ -18,6 +19,7 @@ createApp(App)
 .component('base-badge', BaseBadge)
 .component('base-spinner', BaseSpinner)
 .component('base-dialog', BaseDialog)
+.component('UserAlert', UserAlert)
   //.use(store, key)
   .use(store, key)
   .use(router)

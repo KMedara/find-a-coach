@@ -32,6 +32,7 @@
             :last-name="coach.lastName"
             :rate="coach.hourlyRate"
             :areas="coach.areas"
+            :route-path="route.path +'/'"
           ></coach-item>
         </ul>
         <h3 v-else>No coaches found.</h3>
@@ -47,7 +48,8 @@ import { computed, defineComponent, ref, reactive } from "vue";
 import { ICoach } from "@/typings/ICoach";
 import { IFilter } from "@/typings/IFilter";
 import { useStore } from "@/store";
-
+import useAlert from '@/components/hooks/useAlert'
+import { useRoute } from "vue-router";
 export default defineComponent({
   components: {
     CoachItem,
@@ -56,6 +58,8 @@ export default defineComponent({
 
   setup(_, context) {
     const store = useStore();
+    const route = useRoute();
+    const alert = useAlert();
     const isLoading = ref(false);
     const error = ref(null);
     const isCoach = computed<ICoach>(() => store.getters["coaches/isCoach"]);
@@ -92,6 +96,7 @@ export default defineComponent({
         });
       } catch (error) {
         error.value = error.message || "Something went wrong!";
+        alert.showAlert();
       }
       isLoading.value = false;
     }
@@ -114,6 +119,7 @@ export default defineComponent({
       hasCoaches,
       setFilters,
       loadCoaches,
+      route
     };
   },
 });

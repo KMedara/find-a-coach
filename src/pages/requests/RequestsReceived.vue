@@ -1,6 +1,10 @@
 <template>
   <div>
-    <base-dialog :show="!!error" title="An error occurred!" @close="handleError">
+    <base-dialog
+      :show="!!error"
+      title="An error occurred!"
+      @close="handleError"
+    >
       <p>{{ error }}</p>
     </base-dialog>
     <section>
@@ -24,43 +28,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import RequestItem from '../../components/requests/RequestItem.vue';
-
+import { defineComponent, ref, computed } from "vue";
+import RequestItem from "../../components/requests/RequestItem.vue";
+import { useStore } from "@/store";
 export default defineComponent({
   components: {
     RequestItem,
   },
-  data() {
-    return {
-      isLoading: false,
-      error: null,
-    };
-  },
-  computed: {
-    receivedRequests() {
-      return this.$store.getters['requests/requests'];
-    },
-    hasRequests() {
-      return this.$store.getters['requests/hasRequests'];
-    },
-  },
-  created() {
-    this.loadRequests();
-  },
-  methods: {
-    async loadRequests() {
-      this.isLoading = true;
+  setup() {
+    const store = useStore();
+    const isLoading = ref(false);
+    const error = ref(null);
+    const receivedRequests = computed(() => store.getters["requests/requests"]);
+    const hasRequests = store.getters["requests/hasRequests"];
+
+    async function loadRequests() {
+      isLoading.value = true;
       try {
-        await this.$store.dispatch('requests/fetchRequests');
+        await store.dispatch("requests/fetchRequests");
       } catch (error) {
-        this.error = error.message || 'Something failed!';
+        error.value = error.message || "Something failed!";
       }
-      this.isLoading = false;
-    },
-    handleError() {
-      this.error = null;
-    },
+      isLoading.value = false;
+    }
+    function handleError() {
+      error.value = null;
+    }
+
+    loadRequests();
+    return {
+      isLoading,
+      error,
+      receivedRequests,
+      hasRequests,
+      loadRequests,
+      handleError,
+    };
   },
 });
 </script>

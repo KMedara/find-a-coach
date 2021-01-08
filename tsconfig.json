@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "allowJs": false,
+    "allowJs": true,
     "strictNullChecks": true,
     "types": [
       "webpack-env",
@@ -35,7 +35,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/components/hooks/useAlert.js"  ],
   "exclude": [
     "node_modules"
   ]
